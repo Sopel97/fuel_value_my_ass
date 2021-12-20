@@ -203,7 +203,7 @@ do
             max_temperature = 1,
             base_color = { 0, 0, 0, 0 },
             flow_color = { 0, 0, 0, 0 },
-            heat_capacity = util.parse_energy(args.energy_production_per_craft) * args.energy_required / 60 .. "J",
+            heat_capacity = util.parse_energy(args.energy_production_per_craft) / 100 .. "J",
             icons = empty_icons,
             gas_temperature = 1,
             auto_barrel = false
@@ -215,13 +215,13 @@ do
             category = "fvma-recipes",
             flags = { "hidden" },
             enabled = true,
-            energy_required = args.energy_required,
+            energy_required = 1 / 60,
             ingredients = args.ingredients or {},
             results = {
                 {
                     type = "fluid",
                     name = full_name .. "-steam",
-                    amount = 60 * args.energy_required,
+                    amount = 100,
                     temperature = 1
                 },
             },
@@ -234,7 +234,7 @@ do
             name = full_name .. "-generator",
             icons = empty_icons,
             effectivity = 1,
-            fluid_usage_per_tick = 1,
+            fluid_usage_per_tick = 1 / args.energy_required,
             maximum_temperature = 1,
             collision_box = { { -half_size+0.1 , -half_size+0.1  }, { half_size-0.1,  half_size-0.1  } },
             selection_box = { { -half_size+0.05, -half_size+0.05 }, { half_size-0.05, half_size-0.05 } },
