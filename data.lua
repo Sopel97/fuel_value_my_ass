@@ -203,7 +203,7 @@ do
             max_temperature = 1,
             base_color = { 0, 0, 0, 0 },
             flow_color = { 0, 0, 0, 0 },
-            heat_capacity = util.parse_energy(args.energy_production_per_craft) / 100 .. "J",
+            heat_capacity = util.parse_energy(args.energy_production_per_craft) / 60 .. "J",
             icons = empty_icons,
             gas_temperature = 1,
             auto_barrel = false
@@ -221,7 +221,7 @@ do
                 {
                     type = "fluid",
                     name = full_name .. "-steam",
-                    amount = 100,
+                    amount = 60,
                     temperature = 1
                 },
             },
