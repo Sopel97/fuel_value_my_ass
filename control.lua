@@ -5,7 +5,7 @@ do
         local force = proxy_entity.force
         if proxy_entity.type == "generator" and string.find(proxy_entity.prototype.order, "-fvma") then
             local pipe_position = {
-                proxy_entity.position.x + 0,
+                proxy_entity.position.x + 1.0,
                 proxy_entity.bounding_box.right_bottom.y + 0.5
             }
 
@@ -48,11 +48,29 @@ do
         local proxy_entity = event.created_entity or event.entity
         if proxy_entity.type == "assembling-machine" and string.find(proxy_entity.prototype.order, "-fvma") then
             local proxy_bb = proxy_entity.bounding_box
-            local entities = proxy_entity.surface.find_entities_filtered{
-                area = { { proxy_bb.left_top.x - 1, proxy_bb.left_top.y - 1 }, { proxy_bb.right_bottom.x + 1, proxy_bb.right_bottom.y + 1 } },
+            local surface = proxy_entity.surface
+
+            local entities = surface.find_entities_filtered{
+                area = {
+                    { proxy_bb.left_top.x     - 0.05, proxy_bb.left_top.y     + 0.05 },
+                    { proxy_bb.right_bottom.x - 0.05, proxy_bb.right_bottom.y + 0.05 }
+                },
             }
+            local pipe_entities = surface.find_entities_filtered{
+                area = {
+                    { proxy_entity.position.x       , proxy_bb.right_bottom.y       },
+                    { proxy_entity.position.x + 2.0 , proxy_bb.right_bottom.y + 1.0 }
+                },
+            }
+
             for _, entity in ipairs(entities) do
-                if string.find(entity.prototype.order, "-fvma") then
+                if string.find(entity.prototype.order, "-fvma") and entity.name ~= "fvma-pipe" then
+                    entity.destroy()
+                end
+            end
+
+            for _, entity in ipairs(pipe_entities) do
+                if entity.valid and entity.name == "fvma-pipe" then
                     entity.destroy()
                 end
             end

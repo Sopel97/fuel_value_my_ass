@@ -51,7 +51,7 @@ do
         type = "pipe",
         name = "fvma-pipe",
         icons = empty_icons,
-        collision_box = { { -1.29, 0 }, { 1.29, 0 } },
+        collision_box = { { -0.1, 0 }, { 1.1, 0 } },
         order = "a-fvma",
         fluid_box = {
             base_area = 1,
@@ -167,7 +167,7 @@ do
                     base_level = 100,
                     height = 1,
                     pipe_connections = {
-                        { type = "output", position = {1, half_size_height-0.1+0.5 } },
+                        { type = "output", position = { 2.0, half_size_height-0.1+0.5 } },
                     },
                     secondary_draw_orders = { north = -1 }
                 },
@@ -272,7 +272,7 @@ do
                     west = empty_sprite,
                 },
                 pipe_connections = {
-                    { type = "input", position = {0, half_size_height-0.1+0.5} },
+                    { type = "input", position = { 1.0, half_size_height-0.1+0.5 } },
                 },
                 production_type = "input-output",
                 filter = full_names["fluid"],
