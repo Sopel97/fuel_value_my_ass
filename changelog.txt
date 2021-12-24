@@ -1,4 +1,15 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.2.0
+  Bugfixes:
+    - Probably a lot.
+  Changes:
+    - Forward more stuff from args to the prototypes
+    - Separate width and height instead of a single "size".
+    - Moved and improved fluid boxes.
+    - Prevented rotation.
+    - The generator is now the primary entity (used for drawing)
+    - The generator entity name has no prefix.
+---------------------------------------------------------------------------------------------------
 Version: 0.1.1
   Bugfixes:
     - Fix and improve logic for energy/time.
