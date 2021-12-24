@@ -5,7 +5,7 @@ do
         local force = proxy_entity.force
         if proxy_entity.type == "generator" and string.find(proxy_entity.prototype.order, "-fvma") then
             local pipe_position = {
-                proxy_entity.position.x + 1.0,
+                math.floor(proxy_entity.position.x + 1.1),
                 proxy_entity.bounding_box.right_bottom.y + 0.5
             }
 

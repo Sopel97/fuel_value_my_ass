@@ -134,13 +134,17 @@ do
     end
 
     fvma.create_generator = function(args)
-        if args.size < 3.0 then
-            error("Size must be at least 3 tiles due to factorio limitations.")
-        end
-
         local half_size_width = (args.width or args.size) / 2
         local half_size_height = (args.height or args.size) / 2
         local full_names = fvma.get_composite_entity_names(args.name)
+
+        if half_size_width < 2.5 then
+            error("Width must be at least 5 tiles due to how this is implemented. Trying to fit all the required fluid boxes.")
+        end
+
+        if half_size_height < 1.5 then
+            error("Height must be at least 3 tiles due to fluid box stuff.")
+        end
 
         data:extend({{
             type = "assembling-machine",
@@ -167,7 +171,7 @@ do
                     base_level = 100,
                     height = 1,
                     pipe_connections = {
-                        { type = "output", position = { 2.0, half_size_height-0.1+0.5 } },
+                        { type = "output", position = { 2.0 - half_size_width%1.0, half_size_height-0.1+0.5 } },
                     },
                     secondary_draw_orders = { north = -1 }
                 },
@@ -178,10 +182,10 @@ do
                     base_area = 10,
                     base_level = -1,
                     pipe_connections = {
-                        { type = "input" , position = {-0.5 - half_size_width%1.0, -half_size_height+0.1-0.5    } },
-                        { type = "input" , position = {-0.5 - half_size_width%1.0,  half_size_height-0.1+0.5    } },
-                        { type = "input" , position = {-half_size_width+0.1-0.5  ,  -0.5 - half_size_height%1.0 } },
-                        { type = "input" , position = { half_size_width-0.1+0.5  ,  -0.5 - half_size_height%1.0 } },
+                        { type = "input" , position = { 0.5 - half_size_width%1.0, -half_size_height+0.1-0.5    } },
+                        { type = "input" , position = { 0.5 - half_size_width%1.0,  half_size_height-0.1+0.5    } },
+                        { type = "input" , position = {-half_size_width+0.1-0.5  ,   0.5 - half_size_height%1.0 } },
+                        { type = "input" , position = { half_size_width-0.1+0.5  ,   0.5 - half_size_height%1.0 } },
                     },
                     secondary_draw_orders = { north = -1 }
                 },
@@ -272,7 +276,7 @@ do
                     west = empty_sprite,
                 },
                 pipe_connections = {
-                    { type = "input", position = { 1.0, half_size_height-0.1+0.5 } },
+                    { type = "input", position = { 1.0 - half_size_width%1.0, half_size_height-0.1+0.5 } },
                 },
                 production_type = "input-output",
                 filter = full_names["fluid"],
@@ -327,7 +331,8 @@ fvma.create_generator{
     icon = "__base__/graphics/icons/spidertron.png",
     icon_size = 64,
     name = "temp-generator-9",
-    size = 9,
+    width = 6,
+    height = 3,
     vertical_animation = animation,
     horizontal_animation = animation,
     ingredients = { { type = "fluid", name = "water", amount = 123 } },
@@ -350,7 +355,8 @@ fvma.create_generator{
     icon = "__base__/graphics/icons/spidertron.png",
     icon_size = 64,
     name = "temp-generator-10",
-    size = 10,
+    width = 5,
+    height = 3,
     vertical_animation = animation,
     horizontal_animation = animation,
     ingredients = { { "wooden-chest", 1 } },
