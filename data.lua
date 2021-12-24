@@ -125,6 +125,7 @@ do
 
     fvma.get_composite_entity_names = function(name)
         return {
+            ["item"] = name,
             ["generator"] = name,
             ["assembling-machine"] = name .. "-fvma-assembling-machine",
             ["fluid"] = name .. "-fvma-steam",
@@ -137,7 +138,8 @@ do
             error("Size must be at least 3 tiles due to factorio limitations.")
         end
 
-        local half_size = args.size / 2
+        local half_size_width = (args.width or args.size) / 2
+        local half_size_height = (args.height or args.size) / 2
         local full_names = fvma.get_composite_entity_names(args.name)
 
         data:extend({{
@@ -149,7 +151,7 @@ do
             mipmap_count = args.mipmap_count,
             order = (args.order or "") .. "a-fvma",
             localised_name = { "generator." .. args.name },
-            flags = { "placeable-neutral", "player-creation" },
+            flags = { "placeable-neutral", "player-creation", "not-rotatable", "hide-alt-info" },
             minable = { mining_time = args.mining_time or 1, result = full_names["item"] },
             fluid_boxes = {
                 {
@@ -164,7 +166,7 @@ do
                     base_level = 100,
                     height = 1,
                     pipe_connections = {
-                        { type = "output", position = {1, half_size-0.1+0.5 } },
+                        { type = "output", position = {1, half_size_height-0.1+0.5 } },
                     },
                     secondary_draw_orders = { north = -1 }
                 },
@@ -175,17 +177,17 @@ do
                     base_area = 10,
                     base_level = -1,
                     pipe_connections = {
-                        { type = "input" , position = {-0.5 - half_size%1.0, -half_size+0.1-0.5    } },
-                        { type = "input" , position = {-0.5 - half_size%1.0,  half_size-0.1+0.5    } },
-                        { type = "input" , position = {-half_size+0.1-0.5  ,  -0.5 - half_size%1.0 } },
-                        { type = "input" , position = { half_size-0.1+0.5  ,  -0.5 - half_size%1.0 } },
+                        { type = "input" , position = {-0.5 - half_size_width%1.0, -half_size_height+0.1-0.5    } },
+                        { type = "input" , position = {-0.5 - half_size_width%1.0,  half_size_height-0.1+0.5    } },
+                        { type = "input" , position = {-half_size_width+0.1-0.5  ,  -0.5 - half_size_height%1.0 } },
+                        { type = "input" , position = { half_size_width-0.1+0.5  ,  -0.5 - half_size_height%1.0 } },
                     },
                     secondary_draw_orders = { north = -1 }
                 },
                 off_when_no_fluid_recipe = true
             },
-            collision_box = { { -half_size+0.1 , -half_size+0.1  }, { half_size-0.1,  half_size-0.1  } },
-            selection_box = { { -half_size+0.05, -half_size+0.05 }, { half_size-0.05, half_size-0.05 } },
+            collision_box = { { -half_size_width+0.1 , -half_size_height+0.1  }, { half_size_width-0.1,  half_size_height-0.1  } },
+            selection_box = { { -half_size_width+0.05, -half_size_height+0.05 }, { half_size_width-0.05, half_size_height-0.05 } },
             selection_priority = 51,
             selectable_in_game = false,
             fixed_recipe = full_names["recipe"],
@@ -245,7 +247,7 @@ do
             type = "generator",
             name = full_names["generator"],
             localised_name = { "generator." .. args.name },
-            flags = { "placeable-neutral", "player-creation" },
+            flags = { "placeable-neutral", "player-creation", "not-rotatable", "hide-alt-info", "not-selectable-in-game" },
             icon = args.icon,
             icons = args.icons,
             icon_size = args.icon_size,
@@ -254,8 +256,8 @@ do
             effectivity = 1,
             fluid_usage_per_tick = 1 / args.energy_required,
             maximum_temperature = 1,
-            collision_box = { { -half_size+0.1 , -half_size+0.1  }, { half_size-0.1,  half_size-0.1  } },
-            selection_box = { { -half_size+0.05, -half_size+0.05 }, { half_size-0.05, half_size-0.05 } },
+            collision_box = { { -half_size_width+0.1 , -half_size_height+0.1  }, { half_size_width-0.1,  half_size_height-0.1  } },
+            selection_box = { { -half_size_width+0.05, -half_size_height+0.05 }, { half_size_width-0.05, half_size_height-0.05 } },
             selection_priority = 0,
             selectable_in_game = false,
             fluid_box = {
@@ -269,7 +271,7 @@ do
                     west = empty_sprite,
                 },
                 pipe_connections = {
-                    { type = "input", position = {0, half_size-0.1+0.5} },
+                    { type = "input", position = {0, half_size_height-0.1+0.5} },
                 },
                 production_type = "input-output",
                 filter = full_names["fluid"],
