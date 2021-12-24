@@ -281,19 +281,6 @@ do
             vertical_animation = empty_sprite,
             squeak_behaviour = false,
         }})
-
-        data:extend({{
-            type = "item",
-            name = full_names["item"],
-            icon = args.icon,
-            icons = args.icons,
-            icon_size = args.icon_size,
-            mipmap_count = args.mipmap_count,
-            flags = args.flags or {},
-            order = args.order or "a",
-            place_result = full_names["assembling-machine"],
-            stack_size = args.stack_size or 1,
-        }})
     end
 end
 
@@ -341,6 +328,15 @@ fvma.create_generator{
     energy_required = 1,
 }
 
+data:extend({{
+    type = "item",
+    name = "temp-generator-9",
+    localised_name = { "generator.temp-generator-9" },
+    icon = "__base__/graphics/icons/spidertron.png",
+    icon_size = 64,
+    place_result = "temp-generator-9",
+    stack_size = 10,
+}})
 fvma.create_generator{
     icon = "__base__/graphics/icons/spidertron.png",
     icon_size = 64,
@@ -352,4 +348,13 @@ fvma.create_generator{
     energy_required = 2,
 }
 
+data:extend({{
+    type = "item",
+    name = "temp-generator-10",
+    localised_name = { "generator.temp-generator-10" },
+    icon = "__base__/graphics/icons/spidertron.png",
+    icon_size = 64,
+    place_result = "temp-generator-10",
+    stack_size = 10,
+}})
 --]]--
