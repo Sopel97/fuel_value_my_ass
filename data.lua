@@ -151,7 +151,7 @@ do
             mipmap_count = args.mipmap_count,
             order = (args.order or "") .. "a-fvma",
             localised_name = { "generator." .. args.name },
-            flags = { "placeable-neutral", "player-creation", "not-rotatable", "hide-alt-info" },
+            flags = { "placeable-neutral", "player-creation", "not-rotatable" },
             minable = { mining_time = args.mining_time or 1, result = full_names["item"] },
             fluid_boxes = {
                 {
