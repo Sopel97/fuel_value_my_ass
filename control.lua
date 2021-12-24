@@ -46,13 +46,13 @@ do
 
     function on_mined(event)
         local proxy_entity = event.created_entity or event.entity
-        if proxy_entity.type == "generator" and string.find(proxy_entity.prototype.order, "-fvma") then
+        if proxy_entity.type == "assembling-machine" and string.find(proxy_entity.prototype.order, "-fvma") then
             local proxy_bb = proxy_entity.bounding_box
             local entities = proxy_entity.surface.find_entities_filtered{
                 area = { { proxy_bb.left_top.x - 1, proxy_bb.left_top.y - 1 }, { proxy_bb.right_bottom.x + 1, proxy_bb.right_bottom.y + 1 } },
             }
             for _, entity in ipairs(entities) do
-                if string.find(entity.name, "fvma") then
+                if string.find(entity.prototype.order, "-fvma") then
                     entity.destroy()
                 end
             end

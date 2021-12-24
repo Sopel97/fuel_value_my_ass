@@ -144,6 +144,7 @@ do
             icons = args.icons,
             icon_size = args.icon_size,
             mipmap_count = args.mipmap_count,
+            order = (args.order or "") .. "a-fvma",
             localised_name = { "generator." .. args.name },
             flags = { "placeable-neutral", "player-creation" },
             minable = { mining_time = args.mining_time or 1, result = full_names["item"] },
