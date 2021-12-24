@@ -151,8 +151,9 @@ do
             mipmap_count = args.mipmap_count,
             order = (args.order or "") .. "a-fvma",
             localised_name = { "generator." .. args.name },
-            flags = { "placeable-neutral", "player-creation", "not-rotatable" },
+            flags = { "placeable-neutral", "player-creation", "not-rotatable", "not-blueprintable" },
             minable = { mining_time = args.mining_time or 1, result = full_names["item"] },
+            placeable_by = { { item = full_names["item"], count = 1 } },
             fluid_boxes = {
                 {
                     production_type = "output",
