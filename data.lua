@@ -137,6 +137,7 @@ do
             icons = args.icons,
             icon_size = args.icon_size,
             mipmap_count = args.mipmap_count,
+            localised_description = { "Produces " .. args.energy_production_per_craft .. " energy per craft." },
             fluid_boxes = {
                 {
                     production_type = "output",
