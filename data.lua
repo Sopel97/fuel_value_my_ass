@@ -120,19 +120,30 @@ do
         squeak_behaviour = false,
     }})
 
+    fvma.get_composite_entity_names = function(name)
+        local internal_name = "fvma-" .. name
+        return {
+            ["assembling-machine"] = name,
+            ["item"] = name,
+            ["fluid"] = internal_name .. "-steam",
+            ["recipe"] = internal_name .. "-steam",
+            ["generator"] = internal_name .. "-generator",
+        }
+    end
+
     fvma.create_generator = function(args)
         if args.size < 3.0 then
             error("Size must be at least 3 tiles due to factorio limitations.")
         end
 
         local half_size = args.size / 2
-        local full_name = "fvma-" .. args.name
+        local full_names = fvma.get_composite_entity_names(args.name)
 
         data:extend({{
             type = "assembling-machine",
-            name = full_name,
+            name = full_names["assembling-machine"],
             flags = { "placeable-neutral", "player-creation" },
-            minable = { mining_time = args.mining_time or 1, result = full_name },
+            minable = { mining_time = args.mining_time or 1, result = full_names["item"] },
             icon = args.icon,
             icons = args.icons,
             icon_size = args.icon_size,
@@ -179,7 +190,7 @@ do
             pictures = args.pictures,
             animations = args.animations,
             animation = args.animation,
-            fixed_recipe = full_name .. "-steam",
+            fixed_recipe = full_names["recipe"],
             crafting_categories = { "fvma-recipes" },
             crafting_speed = 1,
             energy_source = {
@@ -198,7 +209,7 @@ do
 
         data:extend({{
             type = "fluid",
-            name = full_name .. "-steam",
+            name = full_names["fluid"],
             flags = { "hidden" },
             default_temperature = 0,
             max_temperature = 1,
@@ -212,7 +223,7 @@ do
 
         data:extend({{
             type = "recipe",
-            name = full_name .. "-steam",
+            name = full_names["recipe"],
             category = "fvma-recipes",
             flags = { "hidden" },
             enabled = true,
@@ -221,7 +232,7 @@ do
             results = {
                 {
                     type = "fluid",
-                    name = full_name .. "-steam",
+                    name = full_names["fluid"],
                     amount = 60,
                     temperature = 1
                 },
@@ -232,7 +243,7 @@ do
 
         data:extend({{
             type = "generator",
-            name = full_name .. "-generator",
+            name = full_names["generator"],
             icon = args.icon,
             icons = args.icons,
             icon_size = args.icon_size,
@@ -258,7 +269,7 @@ do
                     { type = "input", position = {0, half_size-0.1+0.5} },
                 },
                 production_type = "input-output",
-                filter = full_name .. "-steam",
+                filter = full_names["fluid"],
                 minimum_temperature = 0.0
             },
             energy_source =
@@ -273,14 +284,14 @@ do
 
         data:extend({{
             type = "item",
-            name = full_name,
+            name = full_names["item"],
             icon = args.icon,
             icons = args.icons,
             icon_size = args.icon_size,
             mipmap_count = args.mipmap_count,
             flags = args.flags or {},
             order = args.order or "a",
-            place_result = full_name,
+            place_result = full_names["assembling-machine"],
             stack_size = args.stack_size or 1,
         }})
     end
