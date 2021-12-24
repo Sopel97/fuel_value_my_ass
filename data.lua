@@ -232,7 +232,10 @@ do
         data:extend({{
             type = "generator",
             name = full_name .. "-generator",
-            icons = empty_icons,
+            icon = args.icon,
+            icons = args.icons,
+            icon_size = args.icon_size,
+            mipmap_count = args.mipmap_count,
             effectivity = 1,
             fluid_usage_per_tick = 1 / args.energy_required,
             maximum_temperature = 1,
