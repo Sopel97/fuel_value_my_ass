@@ -121,13 +121,11 @@ do
     }})
 
     fvma.get_composite_entity_names = function(name)
-        local internal_name = "fvma-" .. name
         return {
-            ["assembling-machine"] = name,
-            ["item"] = name,
-            ["fluid"] = internal_name .. "-steam",
-            ["recipe"] = internal_name .. "-steam",
-            ["generator"] = internal_name .. "-generator",
+            ["generator"] = name,
+            ["assembling-machine"] = name .. "-fvma-assembling-machine",
+            ["fluid"] = name .. "-fvma-steam",
+            ["recipe"] = name .. "-fvma-steam",
         }
     end
 
@@ -142,13 +140,13 @@ do
         data:extend({{
             type = "assembling-machine",
             name = full_names["assembling-machine"],
-            flags = { "placeable-neutral", "player-creation" },
-            minable = { mining_time = args.mining_time or 1, result = full_names["item"] },
             icon = args.icon,
             icons = args.icons,
             icon_size = args.icon_size,
             mipmap_count = args.mipmap_count,
-            localised_description = { "Produces " .. args.energy_production_per_craft .. " energy per craft." },
+            localised_name = { "generator." .. args.name },
+            flags = { "placeable-neutral", "player-creation" },
+            minable = { mining_time = args.mining_time or 1, result = full_names["item"] },
             fluid_boxes = {
                 {
                     production_type = "output",
@@ -186,10 +184,6 @@ do
             selection_box = { { -half_size+0.05, -half_size+0.05 }, { half_size-0.05, half_size-0.05 } },
             selection_priority = 51,
             selectable_in_game = false,
-            picture = args.picture,
-            pictures = args.pictures,
-            animations = args.animations,
-            animation = args.animation,
             fixed_recipe = full_names["recipe"],
             crafting_categories = { "fvma-recipes" },
             crafting_speed = 1,
@@ -210,6 +204,7 @@ do
         data:extend({{
             type = "fluid",
             name = full_names["fluid"],
+            localised_name = { "" },
             flags = { "hidden" },
             default_temperature = 0,
             max_temperature = 1,
@@ -224,6 +219,7 @@ do
         data:extend({{
             type = "recipe",
             name = full_names["recipe"],
+            localised_name = { "" },
             category = "fvma-recipes",
             flags = { "hidden" },
             enabled = true,
@@ -244,10 +240,13 @@ do
         data:extend({{
             type = "generator",
             name = full_names["generator"],
+            localised_name = { "generator." .. args.name },
+            flags = { "placeable-neutral", "player-creation" },
             icon = args.icon,
             icons = args.icons,
             icon_size = args.icon_size,
             mipmap_count = args.mipmap_count,
+            order = (args.order or "") .. "a-fvma",
             effectivity = 1,
             fluid_usage_per_tick = 1 / args.energy_required,
             maximum_temperature = 1,
@@ -277,14 +276,14 @@ do
                 type = "electric",
                 usage_priority = "secondary-output"
             },
-            horizontal_animation = empty_sprite,
-            vertical_animation = empty_sprite,
+            vertical_animation = args.vertical_animation,
+            horizontal_animation = args.horizontal_animation,
             squeak_behaviour = false,
         }})
     end
 end
 
---[[
+---[[
 
 -- Examples
 
@@ -322,7 +321,8 @@ fvma.create_generator{
     icon_size = 64,
     name = "temp-generator-9",
     size = 9,
-    animation = animation,
+    vertical_animation = animation,
+    horizontal_animation = animation,
     ingredients = { { type = "fluid", name = "water", amount = 123 } },
     energy_production_per_craft = "1MJ",
     energy_required = 1,
@@ -335,14 +335,17 @@ data:extend({{
     icon = "__base__/graphics/icons/spidertron.png",
     icon_size = 64,
     place_result = "temp-generator-9",
+    order = "a",
     stack_size = 10,
 }})
+
 fvma.create_generator{
     icon = "__base__/graphics/icons/spidertron.png",
     icon_size = 64,
     name = "temp-generator-10",
     size = 10,
-    animation = animation,
+    vertical_animation = animation,
+    horizontal_animation = animation,
     ingredients = { { "wooden-chest", 1 } },
     energy_production_per_craft = "1MJ",
     energy_required = 2,
@@ -355,6 +358,8 @@ data:extend({{
     icon = "__base__/graphics/icons/spidertron.png",
     icon_size = 64,
     place_result = "temp-generator-10",
+    order = "a",
     stack_size = 10,
 }})
+
 --]]--

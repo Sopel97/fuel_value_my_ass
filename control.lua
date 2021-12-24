@@ -3,19 +3,17 @@ do
         local proxy_entity = event.created_entity or event.entity
         local surface = proxy_entity.surface
         local force = proxy_entity.force
-        if proxy_entity.type == "assembling-machine" and string.find(proxy_entity.name, "fvma-") then
+        if proxy_entity.type == "generator" and string.find(proxy_entity.prototype.order, "-fvma") then
             local pipe_position = {
                 proxy_entity.position.x + 0,
                 proxy_entity.bounding_box.right_bottom.y + 0.5
             }
 
-            local generator_entity = surface.create_entity{
-                name = proxy_entity.name .. "-generator",
+            local assembler_entity = surface.create_entity{
+                name = proxy_entity.name .. "-fvma-assembling-machine",
                 position = proxy_entity.position,
                 force = force,
             }
-            generator_entity.minable = false
-            generator_entity.destructible = false
 
             local interface_entity = surface.create_entity{
                 name = "fvma-1w-interface",
@@ -40,18 +38,21 @@ do
             }
             pipe.minable = false
             pipe.destructible = false
+
+            proxy_entity.minable = false
+            proxy_entity.destructible = false
         end
     end
 
     function on_mined(event)
         local proxy_entity = event.created_entity or event.entity
-        if proxy_entity.type == "assembling-machine" and string.find(proxy_entity.name, "fvma-") then
+        if proxy_entity.type == "generator" and string.find(proxy_entity.prototype.order, "-fvma") then
             local proxy_bb = proxy_entity.bounding_box
             local entities = proxy_entity.surface.find_entities_filtered{
                 area = { { proxy_bb.left_top.x - 1, proxy_bb.left_top.y - 1 }, { proxy_bb.right_bottom.x + 1, proxy_bb.right_bottom.y + 1 } },
             }
             for _, entity in ipairs(entities) do
-                if string.find(entity.name, "fvma-") then
+                if string.find(entity.name, "fvma") then
                     entity.destroy()
                 end
             end
