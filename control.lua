@@ -10,7 +10,7 @@ do
             }
 
             local assembler_entity = surface.create_entity{
-                name = proxy_entity.name .. "-fvma-assembling-machine",
+                name = "fvma-" .. proxy_entity.name .. "-assembling-machine",
                 position = proxy_entity.position,
                 force = force,
             }

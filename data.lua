@@ -127,9 +127,9 @@ do
         return {
             ["item"] = name,
             ["generator"] = name,
-            ["assembling-machine"] = name .. "-fvma-assembling-machine",
-            ["fluid"] = name .. "-fvma-steam",
-            ["recipe"] = name .. "-fvma-steam",
+            ["assembling-machine"] = "fvma-" .. name .. "-assembling-machine",
+            ["fluid"] = "fvma-" .. name .. "-steam",
+            ["recipe"] = "fvma-" .. name .. "-steam",
         }
     end
 
