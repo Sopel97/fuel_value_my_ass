@@ -1,4 +1,8 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.2.1
+  Changes:
+    - Change naming of the internal entities to have a unique prefix ("fvma-") to prevent mod misassignmnent
+---------------------------------------------------------------------------------------------------
 Version: 0.2.0
   Bugfixes:
     - Probably a lot.
