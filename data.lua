@@ -32,6 +32,7 @@ do
         type = "electric-energy-interface",
         name = "fvma-1w-interface",
         icons = empty_icons,
+        flags = {},
         collision_box = { { -0.5, -0.5 }, { 0.5, 0.5 } },
         gui_mode = "none",
         allow_copy_paste = true,
@@ -53,6 +54,7 @@ do
         icons = empty_icons,
         collision_box = { { -0.1, 0 }, { 1.1, 0 } },
         order = "a-fvma",
+        flags = {},
         fluid_box = {
             base_area = 1,
             base_level = 100,
@@ -99,6 +101,7 @@ do
         name = "fvma-1w-pole",
         icons = empty_icons,
         order = "a-fvma",
+        flags = {},
         collision_box = {{-0.15, -0.15}, {0.15, 0.15}},
         maximum_wire_distance = 0.3,
         supply_area_distance = 0.3,
