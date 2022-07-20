@@ -1,4 +1,10 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.2.2
+  Fixes:
+    - Fix compatibility with pypostprocessing
+    - Fix compatibility with bob's
+    - Remove the test entity
+---------------------------------------------------------------------------------------------------
 Version: 0.2.1
   Changes:
     - Change naming of the internal entities to have a unique prefix ("fvma-") to prevent mod misassignmnent
