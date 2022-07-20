@@ -274,6 +274,7 @@ do
             name = full_names["recipe"],
             localised_name = { "" },
             category = "fvma-recipes",
+            ignore_for_dependencies = true, -- for pypostprocessing
             flags = { "hidden" },
             enabled = true,
             energy_required = 1 / 60,
