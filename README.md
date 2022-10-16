@@ -13,6 +13,7 @@ Additional fields
 - `ingredients` :: `table` of `IngredientPrototype` - the ingredients for a single craft. Can have up to 4 unique fluids.
 - `energy_production_per_craft` :: `Energy` - the amount of energy generated per craft
 - `energy_required` :: double - the time required per craft (actual crafting speed will be different, but this value will reflect the energy output)
+- `results` :: whatever factorio uses for assembler results - other results produced alongside the energy, can be used for example for used cells of some kind.
 
 Prototype/Generator — `generator`
 

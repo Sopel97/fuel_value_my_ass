@@ -268,29 +268,26 @@ do
             gas_temperature = 1,
             auto_barrel = false
         }})
-
+        
+        local temp_results = args.results or {}
+        table.insert(temp_results, {type = "fluid", name = full_names["fluid"], amount = 60, temperature = 1})
+        
         data:extend({{
             type = "recipe",
             name = full_names["recipe"],
             localised_name = { "" },
             category = "fvma-recipes",
             ignore_for_dependencies = true, -- for pypostprocessing
+            main_product = full_names["fluid"],
             flags = { "hidden" },
             enabled = true,
             energy_required = 1 / 60,
             ingredients = args.ingredients or {},
-            results = {
-                {
-                    type = "fluid",
-                    name = full_names["fluid"],
-                    amount = 60,
-                    temperature = 1
-                },
-            },
+            results = temp_results,
             icons = empty_icons,
             allow_decomposition = false,
         }})
-
+        
         data:extend({{
             type = "generator",
             name = full_names["generator"],
