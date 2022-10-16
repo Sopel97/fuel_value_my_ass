@@ -324,7 +324,8 @@ do
             energy_source =
             {
                 type = "electric",
-                usage_priority = "secondary-output"
+                usage_priority = args.usage_priority or "secondary-output",
+                emissions_per_minute = args.emissions_per_minute or nil
             },
             -- user specified properties
             -- Generator properties
